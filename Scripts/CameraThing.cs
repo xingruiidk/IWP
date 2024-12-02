@@ -14,8 +14,6 @@ public class CameraThing : MonoBehaviour
     void Start()
     {
         instance = this;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()

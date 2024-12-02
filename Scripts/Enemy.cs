@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour
         {
             dead = true;
             animator.SetBool("die", dead);
+            transform.GetComponentInChildren<Canvas>().enabled = false;  
         }
     }
     public void CheckEnemy() 

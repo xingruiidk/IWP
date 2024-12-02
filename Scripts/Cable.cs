@@ -60,13 +60,6 @@ public class Cable : MonoBehaviour
         }
         else
         {
-            // Calculate and visualize the forward vector
-            cableHitPoint = follow.forward * maxDist;
-            Debug.DrawLine(follow.position, cableHitPoint, Color.yellow); 
-
-            Invoke(nameof(StopCable), delay);
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(1, cableHitPoint);
         }
     }
 

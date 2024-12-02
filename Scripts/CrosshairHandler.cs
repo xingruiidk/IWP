@@ -23,7 +23,7 @@ public class CrosshairHandler : MonoBehaviour
     private void SetCrosshair()
     {
         image.sprite = crosshairs[index];
-        if (Input.GetKeyDown(KeyCode.P)) 
+        if (Input.GetKeyDown(KeyCode.C)) 
         {
             index++;
             if (index == crosshairs.Length)
