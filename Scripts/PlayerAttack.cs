@@ -6,6 +6,7 @@ public class PlayerAttack : MonoBehaviour
     public static PlayerAttack instance;
     private Animator animator;
     public float damage;
+    private float baseDmg;
     private int comboInt = 0;
     private bool comboEnd;
     private int maxCombo = 4;
@@ -14,6 +15,8 @@ public class PlayerAttack : MonoBehaviour
     private float resetCooldown = 1f;
     public GameObject[] swordCollider;
     private float colliderTimer = 0.3f;
+    private float inCombatTimer = 10f;
+    public bool inCombat = false;
     void Start()
     {
         foreach (GameObject collider in swordCollider)
@@ -22,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
         }
         instance = this;
         comboEnd = true;
+        baseDmg = damage;
         animator = GetComponent<Animator>();
     }
 
@@ -29,6 +33,15 @@ public class PlayerAttack : MonoBehaviour
     {
         HandleCombo();
         CheckComboReset();
+        inCombatTimer -= Time.deltaTime;
+        if (inCombatTimer > 0)
+        {
+            inCombat = true;
+        }
+        else
+        {
+            inCombat = false;
+        }
     }
 
 
@@ -49,22 +62,23 @@ public class PlayerAttack : MonoBehaviour
                 Debug.Log($"Combo Attack: {comboInt}");
                 comboTimer = Time.time + comboCooldown;
             }
+            inCombatTimer = 10;
         }
         if (comboInt == 1)
         {
-            damage = 5;
+            damage = baseDmg;
         }
         else if (comboInt == 2)
         {
-            damage = 7;
+            damage = baseDmg + 2;
         }
         else if (comboInt == 3)
         {
-            damage = 5;
+            damage = baseDmg;
         }
         else if (comboInt == 4)
         {
-            damage = 10;
+            damage = baseDmg + 5;
         }
     }
     void CheckComboReset()

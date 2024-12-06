@@ -1,5 +1,8 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class CameraThing : MonoBehaviour
@@ -10,6 +13,7 @@ public class CameraThing : MonoBehaviour
     public float sensitivity = 100f;
     private float yRotation = 0f;
     private float xRotation = 0f;
+    public GameObject[] Cameras;
 
     void Start()
     {
@@ -19,6 +23,7 @@ public class CameraThing : MonoBehaviour
     void Update()
     {
         RotatePlayer();
+        CombatCamera();
     }
 
     void RotatePlayer()
@@ -39,5 +44,30 @@ public class CameraThing : MonoBehaviour
 
         follow.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
         NSEW.rotation = Quaternion.Euler(0, yRotation, 0f);
+    }
+    public void CombatCamera()
+    {
+        if (!PlayerAttack.instance.inCombat)
+        {
+            ActivateCamera(0);
+        }
+        else
+        {
+            ActivateCamera(1);
+        }
+    }
+    public void ActivateCamera(int index)
+    {
+        for (int i = 0; i < Cameras.Length; i++)
+        {
+            if (i == index)
+            {
+                Cameras[i].SetActive(true);
+            }
+            else
+            {
+                Cameras[i].SetActive(false);
+            }
+        }
     }
 }

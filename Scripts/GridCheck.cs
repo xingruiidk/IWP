@@ -34,17 +34,17 @@ public class GridCheck : MonoBehaviour
                 if (colliders.Length == 0)
                 {
                     emptyCells.Add(cellCenter);
-                    Debug.Log(emptyCells.Count);
+                    //Debug.Log(emptyCells.Count);
                     if (drawDebug)
                     {
-                        Debug.DrawLine(cellCenter + Vector3.left * cellSize / 2, cellCenter + Vector3.right * cellSize / 2, emptyCellColor);
-                        Debug.DrawLine(cellCenter + Vector3.forward * cellSize / 2, cellCenter + Vector3.back * cellSize / 2, emptyCellColor);
+                        //Debug.DrawLine(cellCenter + Vector3.left * cellSize / 2, cellCenter + Vector3.right * cellSize / 2, emptyCellColor);
+                        //Debug.DrawLine(cellCenter + Vector3.forward * cellSize / 2, cellCenter + Vector3.back * cellSize / 2, emptyCellColor);
                     }
                 }
                 else if (drawDebug)
                 {
-                    Debug.DrawLine(cellCenter + Vector3.left * cellSize / 2, cellCenter + Vector3.right * cellSize / 2, occupiedCellColor);
-                    Debug.DrawLine(cellCenter + Vector3.forward * cellSize / 2, cellCenter + Vector3.back * cellSize / 2, occupiedCellColor);
+                    //Debug.DrawLine(cellCenter + Vector3.left * cellSize / 2, cellCenter + Vector3.right * cellSize / 2, occupiedCellColor);
+                    //Debug.DrawLine(cellCenter + Vector3.forward * cellSize / 2, cellCenter + Vector3.back * cellSize / 2, occupiedCellColor);
                 }
             }
         }
@@ -54,7 +54,7 @@ public class GridCheck : MonoBehaviour
     {
         if (emptyCells.Count == 0)
         {
-            Debug.LogWarning("No empty cells available!");
+            Debug.Log("0 empty cell");
             return new List<Vector3>();
         }
         List<Vector3> randomPositions = new List<Vector3>();

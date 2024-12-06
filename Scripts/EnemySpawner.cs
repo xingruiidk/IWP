@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public int poolSize = 10;
     private Queue<GameObject> damageTextPool;
     private GridCheck gridChecker;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
     public int enemyCount;
     private List<GameObject> enemyList;
     // Start is called before the first frame update
@@ -67,8 +67,9 @@ public class EnemySpawner : MonoBehaviour
         List<Vector3> spawnPositions = gridChecker.GetRandomEmptyCells(enemyCount);
         foreach (Vector3 position in spawnPositions)
         {
-            GameObject spawnedEnemy = Instantiate(enemyPrefab, position, Quaternion.identity);
-            spawnedEnemy.GetComponent<Enemy>().modelint = Random.Range(0, 2);
+            int rand = Random.Range(0, 2);
+            GameObject spawnedEnemy = Instantiate(enemyPrefab[rand], position, Quaternion.identity);
+            spawnedEnemy.GetComponent<Enemy>().modelint = rand;
             enemyList.Add(spawnedEnemy);
         }
     }
@@ -89,6 +90,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if (allDead)
         {
+            StartCoroutine(WaitTime());
             foreach (GameObject spawnedEnemy in enemyList)
             {
                 Destroy(spawnedEnemy);
@@ -96,5 +98,9 @@ public class EnemySpawner : MonoBehaviour
             enemyList.Clear();
             SpawnEnemies();
         }
+    }
+    private IEnumerator WaitTime()
+    {
+        yield return new WaitForSeconds(5);
     }
 }

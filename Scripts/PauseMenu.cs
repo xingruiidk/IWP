@@ -18,8 +18,12 @@ public class PauseMenu : MonoBehaviour
         Check(); 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            paused = !paused;
+            Changing();
         }
+    }
+    public void Changing()
+    {
+        paused = !paused;
     }
     public void Check()
     {

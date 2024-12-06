@@ -8,37 +8,44 @@ public class Enemy : MonoBehaviour
     private Healthbar healthbar;
     private bool dead;
     private Animator animator;
-    public GameObject[] models;
+    public GameObject models;
     public int modelint;
     private GameObject currentModel;
     private Canvas hpCanvas;
     private Vector3 hpPos;
     private CapsuleCollider capsuleCollider;
+    private List<EnemyHitbox> colliderList;
     // Start is called before the first frame update
     void Start()
     {
         healthbar = GetComponent<Healthbar>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         hpCanvas = GetComponentInChildren<Canvas>();
-        currentModel = Instantiate(models[modelint], transform);
+        currentModel = Instantiate(models, transform);
         CheckEnemy();
         animator = currentModel.GetComponentInChildren<Animator>();
         hpCanvas.transform.position += hpPos;
+        colliderList = new List<EnemyHitbox>();
+        colliderList.AddRange(GetComponentsInChildren<EnemyHitbox>());
     }
 
     // Update is called once per frame
     void Update()
     {
         EnemyDie();
+        CheckForCollision();
     }
    
-
-    public void OnTriggerEnter(Collider other)
+    public void CheckForCollision()
     {
-        if (other.gameObject.tag == "BloodSword")
+        foreach (EnemyHitbox collider in colliderList) 
         {
-            healthbar.health -= PlayerAttack.instance.damage;
-            EnemySpawner.instance.ShowDMGText(PlayerAttack.instance.damage, transform);
+            if (collider.hit == true)
+            {
+                healthbar.health -= PlayerAttack.instance.damage;
+                EnemySpawner.instance.ShowDMGText(PlayerAttack.instance.damage, transform);
+                collider.hit = false;
+            }
         }
     }
     public void EnemyDie()
@@ -46,6 +53,7 @@ public class Enemy : MonoBehaviour
         if (healthbar.health == 0)
         {
             dead = true;
+            capsuleCollider.isTrigger = true;
             animator.SetBool("die", dead);
             transform.GetComponentInChildren<Canvas>().enabled = false;  
         }
