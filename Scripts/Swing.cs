@@ -61,6 +61,7 @@ public class Swing : MonoBehaviour
             lineRenderer.positionCount = 2;
             lineRenderer.enabled = true;
             cablePosition = cableTip.position;
+            Movement.instance.RotatePlayerTowards(cablePoint);
         }
     }
     public void StopSwing()

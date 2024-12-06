@@ -57,9 +57,7 @@ public class Cable : MonoBehaviour
             Invoke(nameof(ExecuteCable), delay);
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(1, cableHitPoint);
-        }
-        else
-        {
+            Movement.instance.RotatePlayerTowards(cableHitPoint);
         }
     }
 

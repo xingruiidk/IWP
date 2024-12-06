@@ -11,15 +11,15 @@ public class Movement : MonoBehaviour
     public LayerMask floorMask;
     public Rigidbody rb;
     public float jumpForce;
-    private float gravity = -10f;
     private Vector3 moveVel;
 
     void Start()
     {
         instance = this;
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; 
+        rb = GetComponent<Rigidbody>(); 
+        rb.freezeRotation = true;
+
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
             if (moveDirection.magnitude > 0)
             {
                 animator.SetFloat("WASD", 1);
-                transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * 20f); 
+                transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * 20f);
             }
             else
             {
@@ -80,6 +80,11 @@ public class Movement : MonoBehaviour
             isGrounded = false;
             Debug.DrawRay(transform.position + Vector3.up, Vector3.down * 1.2f, Color.red);
         }
+    }
+    public void RotatePlayerTowards(Vector3 hitPoint)
+    {
+        Vector3 hitXZ = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
+        transform.forward = hitXZ - transform.position;
     }
     public void animationCheck()
     {
